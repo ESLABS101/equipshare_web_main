@@ -1,0 +1,17 @@
+<!--lINKS -->
+Home - index.html(ejs)
+solution - solution.html(ejs)
+blog - blog.html(blog)
+about us - about.html(ejs)
+carrer - career.html(ejs)
+enquiry - email(ejs)
+auction - Link missing(?)
+
+login / signup - link missing(?)
+
+buttons link missing - (search / submit)
+
+
+
+
+<!--end links-->
