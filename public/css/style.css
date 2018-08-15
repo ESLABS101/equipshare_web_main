@@ -215,6 +215,8 @@ header {position: absolute;width: 100%;z-index: 99;}
     padding: 0;
     margin: 0 2%;
 	background: #fff;}
+	.manual-solution-pic {width: 360px;height: 194px;overflow: hidden;}
+	.manual-solution-pic img {min-width: 100%;min-height: 100%;}
 	.custom-blog-img{width:360px;height:235px;overflow: hidden;}
 	.manual-home-image {width: 209px;height: 164px;overflow: hidden;}
 	.manual-home-image img {min-width: 100%;min-height: 100%;}
