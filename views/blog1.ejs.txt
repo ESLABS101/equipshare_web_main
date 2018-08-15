@@ -476,14 +476,14 @@
   					<div><img src="images/partners-logo/logo-4.jpg"></div>
   					<div><img src="images/partners-logo/logo-2.jpg"></div>
   				</div>
-  				<a href="email" class="join-btn">Join Us Today</a>	 
+  				<a href="#" class="join-btn">Join Us Today</a>	 
 			</div>
 		</div>
 </div>
 </div>				
 <!---------------Testimonial----------------->
 <!---------------Newsletter---------------->
-<!-- <div class="home-newsletter">
+<div class="home-newsletter">
 <div class="container">
 		<div class="row">
 			    <form action="/subscribe" method="post"> 
@@ -500,7 +500,7 @@
 		</form>
 		</div>
 	</div>
-</div> -->
+</div>
 <!---------------Newsletter---------------->
 </div>
 					<!---------------Content---------------->
