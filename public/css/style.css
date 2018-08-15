@@ -216,6 +216,8 @@ header {position: absolute;width: 100%;z-index: 99;}
     margin: 0 2%;
 	background: #fff;}
 	.custom-blog-img{width:360px;height:235px;overflow: hidden;}
+	.manual-home-image {width: 209px;height: 164px;overflow: hidden;}
+	.manual-home-image img {min-width: 100%;min-height: 100%;}
 .custom-blog-img img{min-width: 100%;min-height: 100%;}
 .Blog-page .content main .blog-post.detail-post h4 {font-size: 30px;font-weight: 600;}
 .Blog-page .content main .blog-post.detail-post .detail-img img {margin-bottom: 20px;border-radius: 5px;width: 100%;}
