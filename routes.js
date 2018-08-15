@@ -74,6 +74,14 @@ module.exports = function(app, passport) {
    app.get('/policy.html',function(req, res){
 res.render('./policy.ejs');
 });
+app.get('/completeblog.html',function(req, res){
+    if(req.query.id<=6 && req.query.id >=1 )
+  { res.render("./blog"+req.query.id+".ejs");}
+    else{
+        res.redirect("/blog.html");
+    }
+ 
+   });
        
     app.get('/blog.html',function(req, res){
     res.render("./blog.ejs");
