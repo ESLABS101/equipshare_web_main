@@ -45,9 +45,36 @@ module.exports = function(app, passport) {
    app.get('/email',function(req, res){
     res.render("./enquiry.ejs");
    });
-      app.get('/career.html',function(req, res){
+  
+      app.get('/enquiry.html',gfunc.enquiry, gfunc.paraghome);
+
+
+
+
+ app.get('/career.html',function(req, res){
     res.render("./career.ejs");
    });
+    app.get('/career_form.html',function(req, res){
+    res.render("./career_form.ejs");
+   });
+ app.post('/career_form.html',gfunc.career,function(req, res){
+    res.redirect("/");
+   });
+     
+
+
+      app.get('/enquiry',gfunc.enquiry, gfunc.paraghome);
+
+       app.get('/terms.html',function(req, res){
+    res.render('./terms.ejs');
+   });
+
+   
+
+   app.get('/policy.html',function(req, res){
+res.render('./policy.ejs');
+});
+       
     app.get('/blog.html',function(req, res){
     res.render("./blog.ejs");
    });

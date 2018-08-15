@@ -5,6 +5,7 @@ var mysql = require('mysql');
 var dbconfig = require('../config/database');
 var connection = mysql.createConnection(dbconfig.connection);
 var alert = require('alert-node');
+var dateTime = require('node-datetime');
 
 // //connection.query('USE ' + dbconfig.database);
 
@@ -100,6 +101,11 @@ module.exports = {
       }
   
     });  
+
+  },
+    paraghome: function(req,res){
+      
+   res.redirect('/');
 
   },
 
@@ -219,6 +225,50 @@ module.exports = {
                 });
               }
           });
+    },
+    // //Insert enquiry into db
+    enquiry : function(req,res, next){
+
+                    var enquiryData=req.query;
+                    console.log(enquiryData);
+                    if(enquiryData){
+                         connection.query("INSERT INTO enquiry set ? ",enquiryData, function(err){
+                    if(err) throw err;
+                   else {
+                  req.session.msg = "Your inquiry is recorded";
+                   next();}
+        
+                });
+                    }
+                    else{
+                        next();
+                    }     
+    },
+     career : function(req,res,next){
+        var mobile = req.body.mobile;
+        var email = req.body.email;
+        var resume = req.files.resume;
+        var resumename = resume.name;
+        console.log(resumename);
+        var dt = dateTime.create();
+        var mydateTime = dt.format('Y-m-d-H-M-S');
+        var resume_name2 = email+mydateTime+resumename ;
+        console.log(resume_name2);
+        req.files.resume.name=resume_name2;
+        req.body.resume=resume_name2;
+                      resume.mv('resume/'+resume.name, function(err3){           
+                            if (err3) throw(err3);
+                        });
+                      connection.query("INSERT INTO career set ?",req.body,function(err){
+                        if(err)throw err;
+                        else
+                        {
+                              alert('Thank you for applying in Equipshare .Our HR will soon contact you...!!!');
+                              // res.render("index.ejs");
+                              next();
+                        }
+                      });
+
     },
 
     subscribe : function(req, res){
