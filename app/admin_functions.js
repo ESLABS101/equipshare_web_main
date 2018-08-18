@@ -17,16 +17,8 @@ var schedule = require('node-schedule');
 
 var express  = require('express');
 var app = express();
-var multer = require('multer');
 var extend = require('util')._extend;
-var Storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, "./images");
-    },
-    filename: function (req, file, callback) {
-        callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
-    }
- });
+
 
 // ================== DAILY AUCTION TIME ===================
 
@@ -40,25 +32,39 @@ module.exports = {
          //parag section
       
          
-            addproduct :function(req,res,next){
-         
-                // var upload = multer({ storage: Storage }).array("p_image", 3);
-            //     upload(req, res, function (err) { 
-            //     if (err) { 
-            //         return res.end("Something went wrong!"); 
-            //     } 
-            //     // return res.end("File uploaded sucessfully!."); 
-            // }); 
-                var product = extend({}, req.body);
-                // product.p_image=req.file.filename;
-                connection.query("insert into product set ? ",product,function(err,result){
-                    if(err) throw err;
-                    else {
-                        next();
-                    }
-                });
-         
-            },
+           
+    addproduct :function(req,res,next){
+         var product = extend({}, req.body);
+        console.log(req.files);
+     if(req.files.p_image)
+     {
+        file = req.files.p_image;
+        file.name= Date.now() + "_" + file.name;
+        product.p_image=file.name;
+        file.mv("images/"+file.name, function(err){
+         if(err) throw err;
+     });
+     }
+
+        connection.query("insert into product set ? ",product,function(err,result){
+            if(err) throw err;
+            else {
+                next();
+            }
+        });
+
+    },
+    productlist :function(req,res,next){
+
+        connection.query("select * from product",function(err,result){
+            if(err) throw err;
+            else {
+                req.myresult=result;
+                next();
+            }
+        });
+
+    },
 //parag section ends here
 
 //================================================================================

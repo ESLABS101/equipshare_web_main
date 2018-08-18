@@ -142,6 +142,52 @@
 </div> -->
 <div class="container">
 
+	<% for(var i=0;i<data.length;i++) { %>	
+   
+   <% if(i%4 == 0) { %>	
+	<div class="row">
+		<% } %>	
+		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"><%= i%4 +1  %>
+			<div class="featured-mach">
+					<div class="mach-img"></div>
+			<div class="center-block text-center">
+				<div class="desc manual-desc">
+					<img src="<%= 'images/'+data[i].p_image %>" class="img-responsive center-block text-center" alt="Concrete Mixer" title="Concrete Mixer">
+					</div>
+					<h4><%= data[i].p_name %></h4>
+					<p class="custom-overflow"><%= data[i].p_desc %></p>
+
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<p style="color: #01be4a"><strong>Rental Rate</strong></p>
+						<p style="color:#01be4a"><i class="fa fa-inr"><%= data[i].p_rental_rate %></i></p>
+
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+							<p style="color:#01be4a"><strong>Lease Rate</strong></p>
+							<p style="color:#01be4a"><i class="fa fa-inr"><%= data[i].p_lease_rate %></i></p>
+	
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<p style="color:#01be4a"><strong>New Rate</strong></p>
+								<p style="color:#01be4a"><i class="fa fa-inr"><%= data[i].p_new_rate	 %></i></p>
+		
+							</div>
+				</div>
+				
+
+			
+			
+			</div>
+			</div>
+
+		</div>
+		
+			
+  <% if(i%4==3 || i==data.length) { %>	
+	</div><% } %>	
+<% } %>	
+
 	<div class="row">
 		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 			<div class="featured-mach">

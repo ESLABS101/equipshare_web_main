@@ -44,8 +44,8 @@ module.exports = function(app, passport) {
     app.get('/index.html',function(req,res){
         res.render("./index.ejs");
     });
-   app.get('/listing', function(req,res){
-        res.render("./listing.ejs", {username:'', title:'', datarows:[]});
+    app.get('/listing',afunc.productlist,function(req,res){
+        res.render("./listing.ejs", {username:'', title:'', data:req.myresult});
     });
    app.get('/about.html',function(req, res){
     res.render("./about.ejs");
