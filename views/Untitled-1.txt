@@ -1,0 +1,27 @@
+			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+				<a href="#" data-toggle="modal" data-target="#model-4">
+					<div class="manual-solution-pic">
+				<img src="images/solution/Screenshot (9).png" class="img-responsive">
+			</div>
+				<h3>Buy - Sales Auction</h3>
+				<p>The world of buying and selling Used Equipments online, but you couldn't complete the process from start to finish on the internet. It was also impossible to know the true condition of the Equipment you were buying, or whether it was sufficiently inspected.
+						ES Labs's mission is "to remove the friction from the process of buying and selling a Equipment via involving true mix of online & offline world” 
+						</p>
+			</a>
+			</div>
+<!------------------>			
+			<div class="modal fade" id="model-4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="width: 900px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="width: 900px;">
+					<img src="images/solution/Screenshot (9).png" class="img-responsive">
+				<a href="#"><button class="btn btn-primary btn-popup-manual center-block text-center" type="button">Buy & Sell</button></a>
+      </div>
+    </div>
+  </div>
+</div>
