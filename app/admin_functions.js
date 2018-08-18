@@ -17,6 +17,16 @@ var schedule = require('node-schedule');
 
 var express  = require('express');
 var app = express();
+var multer = require('multer');
+var extend = require('util')._extend;
+var Storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "./images");
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    }
+ });
 
 // ================== DAILY AUCTION TIME ===================
 
@@ -26,6 +36,30 @@ var DAET = "20:00:00";
 // =========================================================
 
 module.exports = {
+
+         //parag section
+      
+         
+            addproduct :function(req,res,next){
+         
+                // var upload = multer({ storage: Storage }).array("p_image", 3);
+            //     upload(req, res, function (err) { 
+            //     if (err) { 
+            //         return res.end("Something went wrong!"); 
+            //     } 
+            //     // return res.end("File uploaded sucessfully!."); 
+            // }); 
+                var product = extend({}, req.body);
+                // product.p_image=req.file.filename;
+                connection.query("insert into product set ? ",product,function(err,result){
+                    if(err) throw err;
+                    else {
+                        next();
+                    }
+                });
+         
+            },
+//parag section ends here
 
 //================================================================================
 //======================= ADMIN FUNCTIONS ========================================

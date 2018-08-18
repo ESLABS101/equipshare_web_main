@@ -20,13 +20,25 @@ app.use(fileUpload());
 
 // import functions from other files.
 var gfunc = require('./app/general_functions'); //common functions
-// var afunc = require('./app/admin_functions'); //admin side functions
+ var afunc = require('./app/admin_functions'); //admin side functions
 // var ufunc = require('./app/user_functions'); 
 // var csv = require('./app/csv');
 //var func = require('./app/functions')
 
 // ==========================================
 module.exports = function(app, passport) {
+
+    app.get('/admin',function(req,res){
+        res.render("./admin.ejs");
+    });
+
+    app.post('/addproduct',afunc.addproduct,function(req,res){
+        res.redirect('/admin');
+     });
+
+    app.get('/addproduct',function(req,res){
+        res.render("./addproduct.ejs");
+    });
 
     app.get('/',gfunc.home);
     app.get('/index.html',function(req,res){

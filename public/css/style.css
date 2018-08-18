@@ -215,6 +215,7 @@ header {position: absolute;width: 100%;z-index: 99;}
     padding: 0;
     margin: 0 2%;
 	background: #fff;}
+	
 	.blog-images-valid {width: 230px;height: 139px;overflow: hidden;}
 	.blog-images-valid img{min-width: 100%;min-height: 100%;}
 	.manual-solution-pic {width: 360px;height: 194px;overflow: hidden;}
