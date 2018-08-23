@@ -17,8 +17,14 @@ var schedule = require('node-schedule');
 
 var express  = require('express');
 var app = express();
+//parag sec
 var extend = require('util')._extend;
-
+var bcrypt = require('bcrypt');
+var expressValidator = require('express-validator');
+app.use(expressValidator());
+var session = require('express-session');
+app.use(session({ secret: 'supersecretkey',resave: true, saveUninitialized: true ,cookie: { maxAge:60000, }}));
+//parag sec
 
 // ================== DAILY AUCTION TIME ===================
 
@@ -30,7 +36,59 @@ var DAET = "20:00:00";
 module.exports = {
 
          //parag section
-      
+
+    logout :function(req,res,next){
+        console.log("req.session.cookie.maxAge"+req.session.cookie.maxAge);
+        req.session.destroy();
+        // console.log(req.session.cookie.maxAge);
+        next();
+    },
+    auth :function(req,res,next){
+        if(req.session.adminid){next();}
+        else{
+            res.redirect('/user_login');
+           // res.render('admin_login.ejs',{title:'',msg:"Enter username and Password",login_para:0});
+        }
+    },  
+     logauth :function(req,res,next){
+
+        var admin = extend({}, req.body);
+
+            connection.query("select *  from user where u_name='"+admin.u_name+"'",function(err,result,fields){
+         if(err){
+                throw err;
+            }
+         else if(result.length==1)
+         {
+            bcrypt.compare(admin.u_password,result[0].u_password, function(err, isMatch){
+             if(err){
+                    throw err;
+                }
+               else if(isMatch){
+                        var hour = 3600000; 
+                        req.session.cookie.expires = new Date(Date.now() + hour);
+                        req.session.cookie.maxAge = hour;
+                   console.log("req.session.cookie.maxAge"+req.session.cookie.maxAge,req.session.cookie.expires);
+                    req.session.adminid=result[0].iduser;
+                    next();
+   
+                }
+                else{
+                    //wrong pass
+                   res.render('admin_login.ejs',{title:'',msg:"Enter right Password",login_para:0});
+                }
+
+                });
+            }
+          else{ 
+                    res.render('admin_login.ejs',{title:'',msg:"Enter username and Password",login_para:0});
+             }  
+            
+                 
+
+        });
+
+    },  
          
            
     addproduct :function(req,res,next){
@@ -56,15 +114,155 @@ module.exports = {
     },
     productlist :function(req,res,next){
 
-        connection.query("select * from product",function(err,result){
+        connection.query("SELECT *,from_unixtime(UNIX_TIMESTAMP(today),'%d %M %Y') as todaydate from product",function(err,result){
             if(err) throw err;
             else {
-                req.myresult=result;
+                req.product_result=result;
                 next();
             }
         });
 
     },
+
+    addpartner :function(req,res,next){
+         var partner = extend({}, req.body);
+        console.log(req.files);
+     if(req.files.p_image)
+     {
+        file = req.files.p_image;
+        file.name= Date.now() + "_" + file.name;
+        partner.p_image=file.name;
+        file.mv("images/partners/"+file.name, function(err){
+         if(err) throw err;
+     });
+     }
+
+        connection.query("insert into partner set ? ",partner,function(err,result){
+            if(err) throw err;
+            else {
+                next();
+            }
+        });
+
+    },
+    partnerlist :function(req,res,next){
+
+        connection.query("SELECT *,from_unixtime(UNIX_TIMESTAMP(today),'%d %M %Y') as todaydate from partner",function(err,result){
+            if(err) throw err;
+            else {
+                req.partner_result=result;
+                next();
+            }
+        });
+
+    },
+    adduser :function(req,res,next){
+         var user = extend({}, req.body);
+          connection.query("SELECT * from user where u_name='"+user.u_name+"'",function(err,result,fields){
+         if(err){
+                throw err;
+            }
+         else if(result.length==0){
+               bcrypt.hash(user.u_password,10, function(err, hash) {
+             if(err) throw err;
+             else{
+                user.u_password=hash;
+                user.created_by=req.session.adminid;
+                 connection.query("insert into user set ? ",user,function(err,result){
+            if(err) throw err;
+            else {
+                next();
+            }
+        });
+
+             }
+             
+        });
+        
+
+         }
+         else
+         {
+            res.render("./adduser.ejs",{msg:"User Name Exist Try Another"});
+
+         }
+     });
+    },
+    userlist :function(req,res,next){
+
+        connection.query("select *,from_unixtime(UNIX_TIMESTAMP(today),'%d %M %Y') from user",function(err,result){
+            if(err) throw err;
+            else {
+                req.user_result=result;
+                next();
+            }
+        });
+
+    },
+    addblog :function(req,res,next){
+         var blog = extend({}, req.body);
+        console.log(req.files);
+     if(req.files.b_image1)
+     {
+        file = req.files.b_image1;
+        file.name= Date.now() + "_" + file.name;
+        blog.b_image1=file.name;
+        file.mv("images/blog/"+file.name, function(err){
+         if(err) throw err;
+     });
+     }
+
+        if(req.files.b_image2)
+     {
+        file = req.files.b_image2;
+        file.name= Date.now() + "_" + file.name;
+        blog.b_image2=file.name;
+        file.mv("images/blog/"+file.name, function(err){
+         if(err) throw err;
+     });
+     }
+
+        if(req.files.b_image3)
+     {
+        file = req.files.b_image3;
+        file.name= Date.now() + "_" + file.name;
+        blog.b_image3=file.name;
+        file.mv("images/blog/"+file.name, function(err){
+         if(err) throw err;
+     });
+     }
+
+        if(req.files.b_image4)
+     {
+        file = req.files.b_image4;
+        file.name= Date.now() + "_" + file.name;
+        blog.b_image4=file.name;
+        file.mv("images/blog/"+file.name, function(err){
+         if(err) throw err;
+     });
+     }
+
+        connection.query("insert into blog set ? ",blog,function(err,result){
+
+            if(err) throw err;
+            else {
+                next();
+            }
+        });
+
+    },
+    bloglist :function(req,res,next){
+
+        connection.query("select * ,from_unixtime(UNIX_TIMESTAMP(today),'%d %M %Y') as todaydate from blog",function(err,result){
+            if(err) throw err;
+            else {
+                req.blog_result=result;
+                next();
+            }
+        });
+
+    },
+
 //parag section ends here
 
 //================================================================================

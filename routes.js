@@ -29,23 +29,78 @@ var gfunc = require('./app/general_functions'); //common functions
 module.exports = function(app, passport) {
 
     app.get('/admin',function(req,res){
-        res.render("./admin.ejs");
+
+         if(req.session.adminid){
+            res.render("./admin.ejs");
+         }
+        else{
+            res.redirect('./user_login');
+         // res.render('admin_login.ejs',{title:'',msg:"Enter username and Password",login_para:0});
+        }
+        
+    });
+  app.post('/user_login',afunc.logauth,function(req,res){
+
+         res.redirect('/admin');
+    });
+  app.get('/user_login',function(req,res){
+
+ if(req.session.adminid){
+            res.redirect('/admin');
+          //  res.render("./admin.ejs");
+         }
+        else{
+           // res.render('./admin_login.ejs');
+         res.render('admin_login.ejs',{title:'',msg:"Enter username and Password",login_para:0});
+        }
+
+        //res.redirect("/admin");
+    });
+      app.get('/user_logout',afunc.auth,afunc.logout,function(req,res){
+        res.redirect("/admin");
     });
 
-    app.post('/addproduct',afunc.addproduct,function(req,res){
+    app.post('/addproduct',afunc.auth,afunc.addproduct,function(req,res){
         res.redirect('/admin');
      });
 
-    app.get('/addproduct',function(req,res){
+    app.get('/addproduct',afunc.auth,function(req,res){
         res.render("./addproduct.ejs");
     });
+  app.post('/addpartner',afunc.auth,afunc.addpartner,function(req,res){
+        res.redirect('/admin');
+     });
 
-    app.get('/',gfunc.home);
-    app.get('/index.html',function(req,res){
-        res.render("./index.ejs");
+    app.get('/addpartner',afunc.auth,function(req,res){
+        res.render("./addpartner.ejs");
+    });
+ app.post('/addblog',afunc.auth,afunc.addblog,function(req,res){
+        res.redirect('/admin');
+     });
+
+    app.get('/addblog',afunc.auth,function(req,res){
+        res.render("./addblog.ejs");
+    });
+     app.post('/adduser',afunc.auth,afunc.adduser,function(req,res){
+        res.redirect('/admin');
+     });
+
+    app.get('/adduser',afunc.auth,function(req,res){
+        res.render("./adduser.ejs",{msg:""});
+    });
+
+    // app.get('/',gfunc.home);
+    //change by parag
+    app.get('/',afunc.productlist,afunc.bloglist,afunc.partnerlist,function(req,res){
+        res.render("./index.ejs",{ product:req.product_result,blog:req.blog_result,partner:req.partner_result});
+    });
+
+    //ch.. by parag
+    app.get('/index.html',afunc.productlist,afunc.bloglist,afunc.partnerlist,function(req,res){
+        res.render("./index.ejs",{ product:req.product_result,blog:req.blog_result,partner:req.partner_result});
     });
     app.get('/listing',afunc.productlist,function(req,res){
-        res.render("./listing.ejs", {username:'', title:'', data:req.myresult});
+        res.render("./listing.ejs", {username:'', title:'', data:req.product_result});
     });
    app.get('/about.html',function(req, res){
     res.render("./about.ejs");

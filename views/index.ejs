@@ -147,12 +147,12 @@
 			
 			<label>Equipement Category</label>
 			<select onchange="if(this.value!= 0) { find_subcategory(this.value);}">
-				<% for(var i=2; i<cat_rows.length;i++)
+				< for(var i=2; i<cat_rows.length;i++)
 				{
 					%>
-					<option><%= cat_rows[i].category %></option>
+					<option><= cat_rows[i].category %></option>
 
-				<%  } %>
+				<  } %>
 		</select>
 		</div>
 		<div class="col">
@@ -208,67 +208,24 @@
 
 				<div class="custom-featured-machine">
 					<div class="row">
+						<% for(var i=0;i<product.length;i++) { %>	
+						<% if(i == 4) { break;} %>	
 						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 							<div class="custom-ul">
 							
 			<div class="desc">
 				<div class="manual-home-image">
-				<img src="images/home-pro-4.jpg" class="img-responsive" alt="Concrete Mixer" title="Concrete Mixer">
+				<img src="images/<%= product[i].p_image %>" class="img-responsive" alt="<%= product[i].p_name %>" title="Concrete Mixer">
 			</div>
-				<h4>Concrete Mixer</h4>
-				<p>A typical portable concrete mixer uses a small revolving drum to mix the components</p>
-				<span class="price"><i class="fa fa-inr" aria-hidden="true"></i>52304.00</span>
+				<h4><%= product[i].p_name %></h4>
+				<p style=" overflow: hidden;text-overflow: ellipsis;    max-height: 65px; "><%= product[i].p_desc %></p>
+				<span class="price"><i class="fa fa-inr" aria-hidden="true"></i><%= product[i].p_rental_rate %></span>
 				<!--<a href="#" class="more">More Info</a>-->
 			</div> 
 		</div>
 						</div>
-
-						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-								<div class="custom-ul">
-								
-				<div class="desc">
-						<div class="manual-home-image">
-								<img src="images/product-images/Copy of Backhoe.png" class="img-responsive center-block text-center" alt="Concrete Mixer" title="Concrete Mixer">
-					</div>
-						<h4>Backhoe</h4>
-					<p>Backhoe loaders are very common and can be used for a wide variety of tasks</p>
-					<span class="price"><i class="fa fa-inr" aria-hidden="true"></i>52304.00</span>
-					<!--<a href="#" class="more">More Info</a>-->
-				</div> 
-			</div>
-							</div>
-
-							<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-									<div class="custom-ul">
-									
-					<div class="desc">
-							<div class="manual-home-image">
-									<img src="images/product-images/Copy of Dozers.jpg" class="img-responsive center-block text-center" alt="Concrete Mixer" title="Concrete Mixer">
-						</div>
-						<h4>Dozer</h4>
-						<p>Dozer supports simple property mapping, complex type mapping, bi-directional mapping.</p>
-						<span class="price"><i class="fa fa-inr" aria-hidden="true"></i>52304.00</span>
-						<!--<a href="#" class="more">More Info</a>-->
-					</div> 
-				</div>
-								</div>
-
-								<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-										<div class="custom-ul">
-										
-						<div class="desc">
-								<div class="manual-home-image">
-										<img src="images/product-images/Copy of Excavator.png" class="img-responsive center-block text-center" alt="Concrete Mixer" title="Concrete Mixer">
-							</div>
-							<h4>Excavator</h4>
-							<p>Hydraulic Excavators are heavy construction equipment consisting of a boom, dipper (or stick), bucket</p>
-							<span class="price"><i class="fa fa-inr" aria-hidden="true"></i>52304.00</span>
-							<!--<a href="#" class="more">More Info</a>-->
-						</div> 
-					</div>
-									</div>
-
-					</div>
+						<% } %>
+						
 
 				</div>
 
@@ -280,18 +237,18 @@
 
 
 	<ul class="list-unstyled list-inline">
-			<!-- <%for(var i = 0; i < featured.length; i++){%> -->
+			<!-- < for(var i = 0; i < featured.length; i++){%> -->
 		<!-- <li>
 			
 			<div class="mach-img"></div>
 			<div class="desc">
-				<img src="/<%=featured[i].photo1%>" class="img-responsive" alt="<%=featured[i].subcategory%>" title="Concrete Mixer">
-				<h4><%=featured[i].subcategory%></h4>
+				<img src="/<=featured[i].photo1%>" class="img-responsive" alt="<=featured[i].subcategory%>" title="Concrete Mixer">
+				<h4><=featured[i].subcategory%></h4>
 				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-				<span class="price"><i class="fa fa-inr" aria-hidden="true"></i><%=featured[i].expected_price%></span>
+				<span class="price"><i class="fa fa-inr" aria-hidden="true"></i><=featured[i].expected_price%></span>
 				<a href="#" class="more">More Info</a>
 			</div></li> -->
-			<!-- <%}%>	 -->
+			<!-- <}%>	 -->
 		 <!-- <li> 
 			<div class="mach-img"></div>
 			<div class="desc">
@@ -344,7 +301,9 @@
 <br>
 <div class="custom-ap-blog">
 <div class="row">
-	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+	<% for(var i=0;i<blog.length;i++) { %>	
+						<% if(i == 3) { break;} %>	
+<!-- 	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 		<div class="blog-img">
 			<img class="img-responsive" src="images/blog/blog1.jpg" alt="" title="">
 		</div>
@@ -360,19 +319,19 @@
 				</span>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 		<div class="blog-img custom-blog-img">
-			<img class="img-responsive" src="images/blog/post4.jpg" alt="" title="">
+			<img class="img-responsive" src="images/blog/<%= blog[i].b_image1 %>" alt="" title="">
 		</div>
 		<div class="blog-post">
-			<h4> Bullet Trains 
+			<h4> <%= blog[i].b_name %>
 				</h4>
-			<p>It is said that if you are a middle-class Indian, nothing can make ...</p>
+			<p style=" overflow: hidden;text-overflow: ellipsis;    max-height: 65px; " ><%= blog[i].b_desc %></p>
 			<div class="post-detail">
 				<span class="date">
-					<i class="fa fa-clock-o" aria-hidden="true"></i> 1 june 2015
+					<i class="fa fa-clock-o" aria-hidden="true"><%= blog[i].todaydate %></i> 
 				</span>
 				<span class="view">
 					<i class="fa fa-eye" aria-hidden="true"></i>343
@@ -380,7 +339,7 @@
 			</div>
 		</div>
 	</div>
-
+		<% } %>	
 	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 		<div class="blog-img custom-blog-img">
 			<img class="img-responsive" src="images/blog/post5.jpg" alt="" title="">
@@ -470,6 +429,7 @@
 				<h3>Our Partners</h3>
 				<p>This are the companies that we use equipments of</p>
 				<div class="responsive">
+					<% for(var i=0;i<partner.length;i++) { %><div><img src="images/partners/<%= partner[i].p_imag %>"></div>	<% } %>	
   					<div><img src="images/partners-logo/logo-1.jpg"></div>
   					<div><img src="images/partners-logo/logo-2.jpg"></div>
   					<div><img src="images/partners-logo/logo-3.jpg"></div>
